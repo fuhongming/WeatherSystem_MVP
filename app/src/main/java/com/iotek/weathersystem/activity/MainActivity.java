@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iotek.weathersystem.R;
@@ -19,6 +20,7 @@ import com.iotek.weathersystem.ui.IMainView;
 import com.iotek.weathersystem.utils.Tools;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnRadioGroupCheckedChange;
 
 import java.util.List;
@@ -27,12 +29,17 @@ public class MainActivity extends Activity implements IMainView {
     @ViewInject(R.id.rg)
     RadioGroup rg;
 
+    @ViewInject(R.id.tvCityName)
+    TextView tvCityName;
+
     @ViewInject(R.id.progress)
     private ProgressBar progressBar;
+
     @ViewInject(R.id.lv)
     ListView lv;
-    private IMainPresenter presenter;
 
+    private IMainPresenter presenter;
+    public String city = "上海";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +55,18 @@ public class MainActivity extends Activity implements IMainView {
 
     }
 
+    @OnClick(R.id.title_location)
+    public void title_location(View v) {
+        city = "上海";
+        tvCityName.setText(city);
+        presenter.switchCity(city);
+    }
+
     @Override
     protected void onResume() {
+        city = getIntent().getStringExtra("city");
+        tvCityName.setText(city);
+        presenter.switchCity(city);
         presenter.onResume();
         super.onResume();
     }

@@ -1,5 +1,8 @@
 package com.iotek.weathersystem.presenter;
 
+import android.view.View;
+import android.widget.TextView;
+
 import com.iotek.weathersystem.R;
 import com.iotek.weathersystem.model.Result;
 import com.iotek.weathersystem.net.IMainReqData;
@@ -26,7 +29,6 @@ public class MainPresenterImpl implements IMainPresenter, IMainReqData.OnFinishe
         if (mainView != null) {
             mainView.showProgress();
         }
-
         reqData.reqData(this, "苏州");
     }
 
@@ -48,6 +50,11 @@ public class MainPresenterImpl implements IMainPresenter, IMainReqData.OnFinishe
             }
             mainView.showMessage(String.format("%d onCheckedChanged", checkedId + 1));
         }
+    }
+
+    @Override
+    public void switchCity(String city) {
+        reqData.reqData(this, city);
     }
 
     @Override

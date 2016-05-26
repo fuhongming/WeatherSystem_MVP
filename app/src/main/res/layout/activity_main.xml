@@ -18,13 +18,16 @@
             android:layout_height="50dp"
             android:src="@drawable/title_city" />
 
-        <Button
-            android:id="@+id/btnNews"
+        <TextView
+            android:id="@+id/tvCityName"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"
+            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:background="@android:color/holo_green_dark"
-            android:text="墨迹生活资讯" />
+            android:text="苏州" />
 
         <ImageView
             android:id="@+id/title_location"
@@ -42,34 +45,12 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl"
-        android:layout_margin="10dp"
-        android:background="@android:color/holo_blue_light"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/city_search" />
-
-        <EditText
-            android:id="@+id/btn_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="根据地名搜索天气"
-            android:src="@drawable/city_search" />
-    </LinearLayout>
-
     <ListView
         android:id="@+id/lv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/rg"
-        android:layout_below="@id/ll"></ListView>
+        android:layout_below="@id/rl"></ListView>
 
     <RadioGroup
         android:id="@+id/rg"
