@@ -3,4 +3,7 @@
     <item android:drawable="@drawable/home_btn_bg_s" android:state_pressed="true" />
     <item android:drawable="@drawable/home_btn_bg_d" android:state_checked="true" />
     <item android:drawable="@drawable/home_btn_bg_n" />
+   <!-- <item android:drawable="@drawable/tab_my_pressed" android:state_pressed="true" />
+    <item android:drawable="@drawable/tab_my_selected" android:state_checked="true" />
+    <item android:drawable="@drawable/tab_my" />-->
 </selector>

@@ -1,5 +1,7 @@
 package com.iotek.weathersystem.ui;
 
+import com.iotek.weathersystem.model.Result;
+
 import java.util.List;
 
 /**
@@ -10,7 +12,7 @@ public interface IMainView {
 
     void hideProgress();
 
-    void setItems(List<String> items);
+    void showData(Result result);
 
     void showMessage(String message);
 }

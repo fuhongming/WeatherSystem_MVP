@@ -1,6 +1,7 @@
 package com.iotek.weathersystem.presenter;
 
 import com.iotek.weathersystem.R;
+import com.iotek.weathersystem.model.Result;
 import com.iotek.weathersystem.net.IMainReqData;
 import com.iotek.weathersystem.net.MainReqDataImpl;
 import com.iotek.weathersystem.ui.IMainView;
@@ -26,7 +27,7 @@ public class MainPresenterImpl implements IMainPresenter, IMainReqData.OnFinishe
             mainView.showProgress();
         }
 
-        reqData.reqData(this);
+        reqData.reqData(this, "苏州");
     }
 
     @Override
@@ -55,9 +56,9 @@ public class MainPresenterImpl implements IMainPresenter, IMainReqData.OnFinishe
     }
 
     @Override
-    public void onFinished(List<String> items) {
+    public void onFinished(Result result) {
         if (mainView != null) {
-            mainView.setItems(items);
+            mainView.showData(result);
             mainView.hideProgress();
         }
     }

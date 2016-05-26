@@ -5,11 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.iotek.weathersystem.R;
+import com.iotek.weathersystem.adapter.MainAdapter;
+import com.iotek.weathersystem.model.Result;
 import com.iotek.weathersystem.presenter.IMainPresenter;
 import com.iotek.weathersystem.presenter.MainPresenterImpl;
 import com.iotek.weathersystem.ui.IMainView;
@@ -26,7 +29,8 @@ public class MainActivity extends Activity implements IMainView {
 
     @ViewInject(R.id.progress)
     private ProgressBar progressBar;
-
+    @ViewInject(R.id.lv)
+    ListView lv;
     private IMainPresenter presenter;
 
 
@@ -69,8 +73,10 @@ public class MainActivity extends Activity implements IMainView {
     }
 
     @Override
-    public void setItems(List<String> items) {
-
+    public void showData(Result result) {
+        MainAdapter mainAdapter = new MainAdapter(this);
+        mainAdapter.setData(result);
+        lv.setAdapter(mainAdapter);
     }
 
     @Override

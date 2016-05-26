@@ -1,5 +1,7 @@
 package com.iotek.weathersystem.net;
 
+import com.iotek.weathersystem.model.Result;
+
 import java.util.List;
 
 /**
@@ -7,8 +9,8 @@ import java.util.List;
  */
 public interface IMainReqData {
     interface OnFinishedListener {
-        void onFinished(List<String> items);
+        void onFinished(Result result);
     }
 
-    void reqData(OnFinishedListener listener);
+    void reqData(OnFinishedListener listener, String city);
 }
