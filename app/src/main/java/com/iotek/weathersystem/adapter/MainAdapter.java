@@ -34,6 +34,9 @@ public class MainAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        if (result == null) {
+            return 0;
+        }
         return result.getFuture().size();
     }
 
