@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="10dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tvWeek"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgWeather"
+        android:layout_weight="1"
+        android:text="周几" />
+
+    <TextView
+        android:id="@+id/tvWeather"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgWeather"
+        android:layout_weight="1"
+        android:text="天气" />
+
+    <TextView
+        android:id="@+id/tvTemperature"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgWeather"
+        android:layout_weight="1"
+        android:text="温度" />
+
+    <TextView
+        android:id="@+id/tvWind"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgWeather"
+        android:layout_weight="1"
+        android:text="风力"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imgWeather"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

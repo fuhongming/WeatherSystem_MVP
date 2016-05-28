@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true">
+
+    <RelativeLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1A1A1C"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0D100A"
+            android:text="返回"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/btnAddCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="#1A1A1C"
+            android:text="添加城市"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll1"
+        android:background="@android:color/holo_blue_light"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/city_search" />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="根据地名搜索天气"
+            android:src="@drawable/city_search" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvHotCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll2"
+        android:layout_marginTop="20dp"
+        android:background="#1A1A1C"
+        android:padding="10dp"
+        android:text="热门城市"
+        android:textColor="#fff"
+        android:textSize="40dp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvHotCity"
+        android:background="#162F43"
+        android:columnCount="3">
+
+        <Button
+            android:layout_marginLeft="15dp"
+            android:background="#162F43"
+            android:text="北京"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="天津"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="上海"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="15dp"
+            android:background="#162F43"
+
+            android:text="重庆"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="广州"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="深圳"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="15dp"
+            android:background="#162F43"
+            android:text="郑州"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="杭州"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="信阳"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="15dp"
+            android:background="#162F43"
+            android:text="苏州"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="青岛"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="开封"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="15dp"
+            android:background="#162F43"
+            android:text="无锡"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="亳州"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="合肥"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="15dp"
+            android:background="#162F43"
+            android:text="安阳"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="洛阳"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:background="#162F43"
+            android:text="周口"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+    </GridLayout>
+
+
+</RelativeLayout>

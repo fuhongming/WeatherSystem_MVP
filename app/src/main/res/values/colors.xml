@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="white_grey">#f5f5f5</color>
+    <color name="tv_tab_grey">#6a7989</color>
+    <color name="theme_blue">#6ec8ff</color>
 </resources>

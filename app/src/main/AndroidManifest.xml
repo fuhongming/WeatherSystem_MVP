@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.iotek.weathersystem" >
+    package="com.iotek.weathersystem">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 
     <application
+        android:largeHeap="true"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".activity.MainActivity" >
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".activity.MainTab"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity android:name=".activity.WeatherActivity" />
+        <activity android:name=".activity.RealViewActivity" />
+        <activity android:name=".activity.SelectWeatherActivity" />
+        <activity android:name=".activity.CityActivity" />
     </application>
 
 </manifest>

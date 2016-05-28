@@ -1,39 +1,26 @@
 package com.iotek.weathersystem.model;
 
+import java.util.List;
+
 /**
- * Created by fhm on 2016/5/26.
+ * Created by fhm on 2016/5/28.
  */
 public class Root {
-    private String resultcode;//结果码
+    private String success;
 
-    private String reason;
+    private List<Result> result ;
 
-    private Result result;
-
-    private int error_code;
-
-    public void setResultcode(String resultcode){
-        this.resultcode = resultcode;
+    public void setSuccess(String success){
+        this.success = success;
     }
-    public String getResultcode(){
-        return this.resultcode;
+    public String getSuccess(){
+        return this.success;
     }
-    public void setReason(String reason){
-        this.reason = reason;
-    }
-    public String getReason(){
-        return this.reason;
-    }
-    public void setResult(Result result){
+    public void setResult(List<Result> result){
         this.result = result;
     }
-    public Result getResult(){
+    public List<Result> getResult(){
         return this.result;
     }
-    public void setError_code(int error_code){
-        this.error_code = error_code;
-    }
-    public int getError_code(){
-        return this.error_code;
-    }
+
 }

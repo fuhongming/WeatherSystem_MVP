@@ -20,8 +20,8 @@ public class BitmapHelp {
 	public static BitmapUtils getBitmapUtils(Context appContext) {
 		if (bitmapUtils == null) {
 			bitmapUtils = new BitmapUtils(appContext);
-			bitmapUtils.configDefaultLoadingImage(R.drawable.default_pic2);
-			bitmapUtils.configDefaultLoadFailedImage(R.drawable.default_pic2);
+			bitmapUtils.configDefaultLoadingImage(R.drawable.weather_icon);
+			bitmapUtils.configDefaultLoadFailedImage(R.drawable.weather_icon);
 			bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);
 
 //          bitmapUtils.configDefaultBitmapMaxSize(BitmapCommonUtils.getScreenSize(this).scaleDown(3));
