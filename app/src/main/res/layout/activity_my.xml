@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar"
+        android:background="@android:color/holo_green_dark"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/ivUse"
@@ -9,22 +25,20 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ivUse"
-        android:gravity="center"
-        android:text="使用帮助" />
+        android:text="使用帮助"
+        android:textSize="20dp" />
 
     <ImageView
         android:id="@+id/ivAbout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ivUse" />
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ivAbout"
-        android:gravity="center"
-        android:text="关于" />
-</RelativeLayout>
+        android:layout_marginTop="5dp"
+        android:text="关于"
+        android:textSize="20dp" />
+</LinearLayout>

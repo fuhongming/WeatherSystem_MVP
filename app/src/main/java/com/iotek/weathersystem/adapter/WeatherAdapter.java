@@ -18,7 +18,7 @@ import java.util.List;
 
 
 public class WeatherAdapter extends BaseAdapter {
-   List<Result>  result =new ArrayList<>();
+    List<Result> result = new ArrayList<>();
     Context context;
     BitmapUtils bitmapUtils;
 
@@ -28,17 +28,14 @@ public class WeatherAdapter extends BaseAdapter {
         bitmapUtils = BitmapHelp.getBitmapUtils(context);
     }
 
-    public void setData( List<Result>  result) {
+    public void setData(List<Result> result) {
         this.result = result;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        if (result == null) {
-            return 0;
-        }
-        return result.size();
+        return result == null ? 0 : result.size();
     }
 
     @Override
@@ -68,10 +65,10 @@ public class WeatherAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();// 取出ViewHolder对象
         }
-        String week =result.get(position).getWeek();
+        String week = result.get(position).getWeek();
         String weather = result.get(position).getWeather();
         String wind = result.get(position).getWind();
-        String temperature=result.get(position).getTemperature();
+        String temperature = result.get(position).getTemperature();
         holder.tvWeek.setText(week);
         holder.tvWeather.setText(weather);
         holder.tvWind.setText(wind);

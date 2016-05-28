@@ -43,7 +43,7 @@ public class MainTab extends ActivityGroup implements OnClickListener {
     private void initTabs() {
         intentWeather = new Intent(this, WeatherActivity.class);
         intentRealView = new Intent(this, RealViewActivity.class);
-        intentMy = new Intent(this, WeatherActivity.class);
+        intentMy = new Intent(this, MyActivity.class);
         mHost.addTab(buildTabSpec(TAB_WEATHER, TAB_REALVIEW, R.drawable.defult, intentWeather));
         mHost.addTab(buildTabSpec(TAB_REALVIEW, TAB_REALVIEW, R.drawable.defult, intentRealView));
         mHost.addTab(buildTabSpec(TAB_MY, TAB_REALVIEW, R.drawable.defult, intentMy));
