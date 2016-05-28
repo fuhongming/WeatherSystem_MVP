@@ -1,20 +1,25 @@
 package com.iotek.weathersystem.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.amap.api.location.AMapLocation;
@@ -29,6 +34,7 @@ import com.iotek.weathersystem.model.City;
 import com.iotek.weathersystem.model.LocateState;
 import com.iotek.weathersystem.utils.StringUtils;
 import com.iotek.weathersystem.utils.ToastUtils;
+import com.iotek.weathersystem.view.CustomDialog;
 import com.iotek.weathersystem.view.SideLetterBar;
 
 import java.util.ArrayList;
@@ -52,6 +58,8 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
     private DBManager dbManager;
 
     private AMapLocationClient mLocationClient;
+    private InputMethodManager mInputMethodManager;
+    CustomDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +145,7 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
+
             @Override
             public void afterTextChanged(Editable s) {
                 String keyword = s.toString();
@@ -198,11 +207,37 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
                 break;
 
             case R.id.addCity:
-                List<String> l = new ArrayList<>();
-                l.add("周口");
-                mCityAdapter.addCity(l);
+                dialog();
                 break;
         }
+    }
+
+    // 弹窗
+    private void dialog() {
+        dialog = new CustomDialog(this);
+        dialog.setTitle("添加城市");
+        final EditText editText = (EditText) dialog.getEditText();//方法在CustomDialog中实现
+        dialog.show();
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                mInputMethodManager.showSoftInput(editText, 0);
+//                mInputMethodManager.showSoftInputFromInputMethod(searchBox.getWindowToken(), 0);
+                  mInputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                String city = editText.getText().toString();
+                if (!city.equals("") && city != null) {
+                    List<String> l = new ArrayList<>();
+                    l.add(city);
+                    mCityAdapter.addCity(l);
+                    dialog.dismiss();
+                } else {
+                    ToastUtils.showToast(CityPickerActivity.this, "输入为空，请重新输入");
+                }
+            }
+        });
+
     }
 
     @Override

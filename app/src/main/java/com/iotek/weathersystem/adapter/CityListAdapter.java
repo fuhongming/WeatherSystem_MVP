@@ -1,6 +1,9 @@
 package com.iotek.weathersystem.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.renderscript.ScriptGroup;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import com.iotek.weathersystem.R;
 import com.iotek.weathersystem.model.City;
 import com.iotek.weathersystem.model.LocateState;
 import com.iotek.weathersystem.utils.PinyinUtils;
+import com.iotek.weathersystem.utils.ToastUtils;
 import com.iotek.weathersystem.view.WrapHeightGridView;
 
 import java.util.ArrayList;
@@ -164,6 +168,14 @@ public class CityListAdapter extends BaseAdapter {
                         }
                     }
                 });
+
+                gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        delDialog(position);
+                        return true;
+                    }
+                });
                 break;
             case 2:     //所有
                 if (view == null) {
@@ -198,6 +210,21 @@ public class CityListAdapter extends BaseAdapter {
                 break;
         }
         return view;
+    }
+
+    private void delDialog(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("确认删除吗？");
+        builder.setTitle("提示");
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                delCity(position);
+            }
+        });
+        builder.create().show();
     }
 
     public static class CityViewHolder {
