@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,10 +31,12 @@ import com.iotek.weathersystem.R;
 import com.iotek.weathersystem.adapter.CityListAdapter;
 import com.iotek.weathersystem.adapter.ResultListAdapter;
 import com.iotek.weathersystem.db.DBManager;
+import com.iotek.weathersystem.db.Db;
 import com.iotek.weathersystem.model.City;
 import com.iotek.weathersystem.model.LocateState;
 import com.iotek.weathersystem.utils.StringUtils;
 import com.iotek.weathersystem.utils.ToastUtils;
+import com.iotek.weathersystem.utils.Tools;
 import com.iotek.weathersystem.view.CustomDialog;
 import com.iotek.weathersystem.view.SideLetterBar;
 
@@ -44,12 +47,12 @@ import java.util.List;
  * author zaaach on 2016/1/26.
  */
 public class CityPickerActivity extends Activity implements View.OnClickListener {
-    private ListView mListView;
-    private ListView mResultListView;
-    private SideLetterBar mLetterBar;
-    private EditText searchBox;
-    private ImageView clearBtn;
-    private ImageView backBtn;
+    private ListView mListView;        //所有城市列表
+    private ListView mResultListView; //搜索城市结果
+    private SideLetterBar mLetterBar; //侧边栏
+    private EditText searchBox;      //搜索城市输入框
+    private ImageView clearBtn;      //清空输入框内容
+    private Button backBtn;       //返回天气界面
     private ViewGroup emptyView;
 
     private CityListAdapter mCityAdapter;
@@ -103,15 +106,15 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
         dbManager.copyDBFile();
         mAllCities = dbManager.getAllCities();
         mCityAdapter = new CityListAdapter(this, mAllCities);
+
         mCityAdapter.setOnCityClickListener(new CityListAdapter.OnCityClickListener() {
             @Override
-            public void onCityClick(String name) {
+            public void onCityClick(String name) {   //热门城市、所有城市列表item项点击事件响应
                 back(name);
             }
 
             @Override
-            public void onLocateClick() {
-                Log.e("onLocateClick", "重新定位...");
+            public void onLocateClick() {  //定位
                 mCityAdapter.updateLocateState(LocateState.LOCATING, null);
                 mLocationClient.startLocation();
             }
@@ -136,7 +139,7 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
         });
 
         searchBox = (EditText) findViewById(R.id.et_search);
-        searchBox.addTextChangedListener(new TextWatcher() {
+        searchBox.addTextChangedListener(new TextWatcher() {//监听编辑框是否改变
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -147,7 +150,7 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
 
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s) {  //编辑框内容改变之后回调
                 String keyword = s.toString();
                 if (TextUtils.isEmpty(keyword)) {
                     clearBtn.setVisibility(View.GONE);
@@ -173,12 +176,14 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
         mResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //搜索结果item项
                 back(mResultAdapter.getItem(position).getName());
+
             }
         });
 
         clearBtn = (ImageView) findViewById(R.id.iv_search_clear);
-        backBtn = (ImageView) findViewById(R.id.back);
+        backBtn = (Button) findViewById(R.id.back);
 
         clearBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
@@ -186,7 +191,6 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
     }
 
     private void back(String city) {
-//        ToastUtils.showToast(this, "点击的城市：" + city);
         Intent data = new Intent();
         data.putExtra("city", city);
         setResult(RESULT_OK, data);
@@ -226,14 +230,15 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
 //                mInputMethodManager.showSoftInputFromInputMethod(searchBox.getWindowToken(), 0);
                   mInputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
-                String city = editText.getText().toString();
-                if (!city.equals("") && city != null) {
-                    List<String> l = new ArrayList<>();
-                    l.add(city);
-                    mCityAdapter.addCity(l);
+                String cityName = editText.getText().toString();
+                if (!cityName.equals("") && cityName != null) {
                     dialog.dismiss();
+                    City city = new City();
+                    city.setName(cityName);
+                    mCityAdapter.addCity(city);
+                    Db.save(city);
                 } else {
-                    ToastUtils.showToast(CityPickerActivity.this, "输入为空，请重新输入");
+                    ToastUtils.showToast(CityPickerActivity.this, "输入为空");
                 }
             }
         });

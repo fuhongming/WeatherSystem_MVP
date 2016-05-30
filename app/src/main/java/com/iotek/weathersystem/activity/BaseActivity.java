@@ -48,7 +48,6 @@ public class BaseActivity extends Activity {
 	protected static final int SOUND_ERROR = 3;
 	protected static final int SOUND_WONDERFUL = 4;
 	
-	long startTime;
 	int mScreenWidth, mScreenHeight, countRightNum, currentIndex;
 	static float xScale, yScale;
 	float mdensity;

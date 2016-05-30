@@ -1,10 +1,20 @@
 package com.iotek.weathersystem.model;
 
+import org.xutils.db.annotation.Column;
+import org.xutils.db.annotation.Table;
+
 /**
  * author zaaach on 2016/1/26.
  */
+
+@Table(name = "city")
 public class City {
+    @Column(name = "id", isId = true)
+    public int id;
+
+    @Column(name = "name")
     private String name;
+
     private String pinyin;
 
     public City() {

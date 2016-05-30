@@ -4,12 +4,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 
     <application
+        android:name=".commom.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
@@ -31,6 +33,7 @@
         <activity android:name=".activity.WeatherActivity" />
         <activity android:name=".activity.RealViewActivity" />
         <activity android:name=".activity.MyActivity"/>
+        <activity android:name=".activity.LifeActivity"/>
         <activity
             android:name=".activity.CityPickerActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />

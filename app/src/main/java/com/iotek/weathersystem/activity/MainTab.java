@@ -16,7 +16,7 @@ import com.iotek.weathersystem.R;
 public class MainTab extends ActivityGroup implements OnClickListener {
     public static final String TAB_WEATHER = "TAB_WEATHER";
     public static final String TAB_REALVIEW = "TAB_REALVIEW";
-    public static final String TAB_MY = "my";
+    public static final String TAB_MY = "TAB_MY";
     private TabHost mHost;
     private Intent intentWeather, intentRealView, intentMy;
     private RadioButton btnWeather, btnRealView, btnMy;

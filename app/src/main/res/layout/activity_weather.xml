@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlBg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar"
         android:background="@android:color/holo_green_dark"
-        android:gravity="center">
+        android:gravity="bottom">
 
         <ImageView
             android:id="@+id/ivCity"
@@ -45,49 +45,6 @@
 
     </RelativeLayout>
 
-    <!--<RadioGroup-->
-    <!--android:id="@+id/rg"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:orientation="horizontal">-->
-
-    <!--<RadioButton-->
-    <!--android:id="@+id/rbWeather"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:background="@drawable/selecter"-->
-    <!--android:checked="true"-->
-    <!--android:button="@null"-->
-    <!--android:drawableTop="@drawable/tab_weather"-->
-    <!--android:gravity="center"-->
-    <!--android:text="天气" />-->
-
-    <!--<RadioButton-->
-    <!--android:id="@+id/rbTokikage"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:background="@drawable/selecter"-->
-    <!--android:button="@null"-->
-    <!--android:drawableTop="@drawable/tab_shijing"-->
-    <!--android:gravity="center"-->
-    <!--android:text="时景" />-->
-
-
-    <!--<RadioButton-->
-    <!--android:id="@+id/rbMy"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:background="@drawable/selecter"-->
-    <!--android:button="@null"-->
-    <!--android:drawableTop="@drawable/tab_my"-->
-    <!--android:gravity="center"-->
-    <!--android:text="我" />-->
-
-    <!--</RadioGroup>-->
 
     <ListView
         android:id="@+id/lv"

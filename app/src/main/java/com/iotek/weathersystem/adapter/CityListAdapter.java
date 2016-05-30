@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.iotek.weathersystem.R;
+import com.iotek.weathersystem.db.Db;
 import com.iotek.weathersystem.model.City;
 import com.iotek.weathersystem.model.LocateState;
 import com.iotek.weathersystem.utils.PinyinUtils;
@@ -85,8 +86,8 @@ public class CityListAdapter extends BaseAdapter {
         return integer == null ? -1 : integer;
     }
 
-    public void addCity(List<String> list) {
-        hotCityGridAdapter.addCity(list);
+    public void addCity(City city) {
+        hotCityGridAdapter.addCity(city);
     }
 
     public void delCity(int index) {
@@ -236,7 +237,7 @@ public class CityListAdapter extends BaseAdapter {
         this.onCityClickListener = listener;
     }
 
-    public interface OnCityClickListener {
+    public interface  OnCityClickListener {
         void onCityClick(String name);
 
         void onLocateClick();

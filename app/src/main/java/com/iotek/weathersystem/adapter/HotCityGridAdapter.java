@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 
 import com.iotek.weathersystem.R;
+import com.iotek.weathersystem.db.Db;
+import com.iotek.weathersystem.model.City;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,23 +20,23 @@ import java.util.List;
  */
 public class HotCityGridAdapter extends BaseAdapter {
     private Context mContext;
-    private List<String> mCities;
+    private List<City> mCities;
 
     public HotCityGridAdapter(Context context) {
         this.mContext = context;
-        mCities = new ArrayList<>();
-        mCities.add("北京");
-        mCities.add("上海");
-        mCities.add("广州");
-        mCities.add("深圳");
+        mCities = Db.select();
+        if (mCities == null) {
+            mCities = new ArrayList<>();
+        }
     }
 
-    public void addCity(List<String> list) {
-        mCities.addAll(list);
+    public void addCity(City city) {
+        mCities.add(city);
         notifyDataSetChanged();
     }
 
     public void delCity(int location) {
+        Db.del(mCities.get(location).id);
         mCities.remove(location);
         notifyDataSetChanged();
     }
@@ -46,7 +48,7 @@ public class HotCityGridAdapter extends BaseAdapter {
 
     @Override
     public String getItem(int position) {
-        return mCities == null ? null : mCities.get(position);
+        return mCities == null ? null : mCities.get(position).getName();
     }
 
     @Override
@@ -65,7 +67,7 @@ public class HotCityGridAdapter extends BaseAdapter {
         } else {
             holder = (HotCityViewHolder) view.getTag();
         }
-        holder.name.setText(mCities.get(position));
+        holder.name.setText(mCities.get(position).getName());
         return view;
     }
 

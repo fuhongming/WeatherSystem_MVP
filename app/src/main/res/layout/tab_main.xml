@@ -3,8 +3,10 @@
     android:id="@+id/tabhost"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false"
-    android:fitsSystemWindows="true">
+    android:clipToPadding="false">
+<!--  clipToPadding就是说控件的绘制区域是否在padding里面的
+设置应用布局时是否考虑系统窗口布局；如果为true，
+将调整系统窗口布局以适应你自定义的布局。-->
 
     <LinearLayout
         android:layout_width="match_parent"

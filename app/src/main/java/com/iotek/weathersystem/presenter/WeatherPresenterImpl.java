@@ -27,7 +27,6 @@ public class WeatherPresenterImpl implements IWeatherPresenter, IWeatherReq.OnFi
         if (mainView != null) {
             mainView.showProgress();
         }
-        reqData.reqData(this, "苏州");
     }
 
     @Override
@@ -47,6 +46,7 @@ public class WeatherPresenterImpl implements IWeatherPresenter, IWeatherReq.OnFi
         mainView = null;
     }
 
+    //数据请求完成之后显示数据
     @Override
     public void onFinished(List<Result> result) {
         if (mainView != null) {

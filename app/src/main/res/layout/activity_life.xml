@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar"
+        android:background="@android:color/holo_green_dark"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="生活资讯"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl">
+
+        <TextView
+            android:id="@+id/tvCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="中国"
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:text="周几"
+            android:textSize="30dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlDress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlCity"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/ivDress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/dressing_index" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ivDress"
+            android:text="穿衣指数" />
+
+        <TextView
+            android:id="@+id/tvDress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ivDress"
+            android:layout_toRightOf="@id/ivDress"
+            android:text="适度穿衣" />
+
+        <TextView
+            android:id="@+id/tvNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivDressZambia1"
+            android:layout_toLeftOf="@+id/ivDressZambia1"
+            android:text="10万"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/ivDressZambia1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/heart" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlSport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlDress"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/sport_index" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv"
+            android:text="运动指数" />
+
+        <TextView
+            android:id="@+id/tvSport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv"
+            android:layout_toRightOf="@id/iv"
+            android:text="适当运动" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivSportZambia"
+            android:layout_toLeftOf="@+id/ivSportZambia"
+            android:text="15万"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/ivSportZambia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/heart" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlWash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSport"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/ivWash"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/sport_index" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ivWash"
+            android:text="洗车指数" />
+
+        <TextView
+            android:id="@+id/tvWash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ivWash"
+            android:layout_toRightOf="@id/ivWash"
+            android:text="合理规划洗车" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivWashZambia"
+            android:layout_toLeftOf="@+id/ivWashZambia"
+            android:text="15万"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/ivWashZambia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/heart" />
+
+    </RelativeLayout>
+
+    -
+
+    <RelativeLayout
+        android:id="@+id/rlMakeup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlWash"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/ivMakeup"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/sport_index" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ivMakeup"
+            android:text="化妆指数" />
+
+        <TextView
+            android:id="@+id/tvMakeup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ivMakeup"
+            android:layout_toRightOf="@id/ivMakeup"
+            android:text="合理化妆" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivMakeupZambia"
+            android:layout_toLeftOf="@+id/ivMakeupZambia"
+            android:text="15万"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/ivMakeupZambia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/heart" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlMakeup"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/ivLight"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/sport_index" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ivLight"
+            android:text="紫外线指数" />
+
+        <TextView
+            android:id="@+id/tvLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ivLight"
+            android:layout_toRightOf="@id/ivLight"
+            android:text="适当运动" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivLightZambia"
+            android:layout_toLeftOf="@+id/ivLightZambia"
+            android:text="15万"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/ivLightZambia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/heart" />
+
+    </RelativeLayout>
+</RelativeLayout>

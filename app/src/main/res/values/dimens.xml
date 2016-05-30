@@ -7,6 +7,7 @@
     <dimen name="side_letter_bar_width">36dp</dimen>
     <dimen name="city_text_size">16sp</dimen>
 
-    <dimen name="title_bar">60dp</dimen>
+    <dimen name="title_bar">70dp</dimen>
+    <dimen name="dp20">20dp</dimen>
 
 </resources>
