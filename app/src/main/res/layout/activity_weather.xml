@@ -27,7 +27,7 @@
             android:gravity="center"
             android:text="苏州"
             android:textColor="@android:color/white"
-            android:textSize="20dp" />
+            android:textSize="@dimen/title_size" />
 
         <ImageView
             android:id="@+id/title_location"
@@ -45,12 +45,20 @@
 
     </RelativeLayout>
 
+    <com.iotek.weathersystem.view.RefreshableView
+        android:id="@+id/refreshable_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/rl">
 
-    <ListView
-        android:id="@+id/lv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl" />
+        <ListView
+            android:id="@+id/lv"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbars="none" >
+        </ListView>
+
+    </com.iotek.weathersystem.view.RefreshableView>
 
     <ProgressBar
         android:id="@+id/progress"

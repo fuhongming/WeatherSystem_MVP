@@ -1,13 +1,18 @@
 package com.iotek.weathersystem.net;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.widget.ListAdapter;
 
 import com.google.gson.Gson;
 import com.iotek.weathersystem.commom.Canstants;
+import com.iotek.weathersystem.model.City;
 import com.iotek.weathersystem.model.Result;
 import com.iotek.weathersystem.model.Root;
 import com.iotek.weathersystem.utils.FileUtils;
+import com.iotek.weathersystem.utils.ToastUtils;
 import com.iotek.weathersystem.utils.Tools;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -26,21 +31,34 @@ import java.util.List;
 public class WeatherReqImpl implements IWeatherReq {
 
     @Override
-    public void reqData(final OnFinishedListener listener, String city) {
-         //请求数据
+    public void reqData(final OnFinishedListener listener, String city, Context context) {
+        //请求数据
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
 //            }
 //        }, 3000);
-//        getDataTask("http://v.juhe.cn/weather/index?format=2&cityname=" + city + "&key=9e5f02e00952d4ed3579e62545d63531", listener);
-        getDataTask("http://api.k780.com:88/?app=weather.future&weaid=" + city + "&&appkey=19106&sign=0b907c12b37b9d71933c1532b2864113&format=json", listener);
+
+
+        if (Tools.isNetConn(context)) {
+            getDataTask("http://api.k780.com:88/?app=weather.future&weaid=" + city + "&&appkey=19106&sign=0b907c12b37b9d71933c1532b2864113&format=json", listener);
+
+        } else {
+            ToastUtils.showToast(context,"网络无连接");
+            String jsonStr = FileUtils.read(Canstants.WEATHER_NAME);
+            if (jsonStr != null) {
+                Gson gson = new Gson();
+                Root root = gson.fromJson(jsonStr, Root.class);
+                listener.onFinished(root.getResult());
+            }
+        }
     }
 
     public void getDataTask(String url, final OnFinishedListener listener) {
         RequestParams params = new RequestParams("UTF-8");
 //        params.addBodyParameter("key", value);
         HttpUtils http = new HttpUtils();
+//        http.configDefaultHttpCacheExpiry(0);
         http.configTimeout(3000);
         http.send(HttpRequest.HttpMethod.GET, url, params, new RequestCallBack<String>() {
 
@@ -57,12 +75,7 @@ public class WeatherReqImpl implements IWeatherReq {
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                String jsonStr = FileUtils.read(Canstants.WEATHER_NAME);
-                if (jsonStr != null) {
-                    Gson gson = new Gson();
-                    Root root = gson.fromJson(jsonStr, Root.class);
-                    listener.onFinished(root.getResult());
-                }
+                listener.onFinished(null);
             }
         });
     }

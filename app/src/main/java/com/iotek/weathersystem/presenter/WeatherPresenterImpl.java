@@ -15,9 +15,11 @@ import java.util.List;
 public class WeatherPresenterImpl implements IWeatherPresenter, IWeatherReq.OnFinishedListener {
     private IWeatherView mainView;
     private IWeatherReq reqData;
+    private Context context;
 
-    public WeatherPresenterImpl(IWeatherView mainView) {
+    public WeatherPresenterImpl(IWeatherView mainView, Context context) {
         this.mainView = mainView;
+        this.context = (Context)mainView;
         reqData = new WeatherReqImpl();
 
     }
@@ -38,7 +40,7 @@ public class WeatherPresenterImpl implements IWeatherPresenter, IWeatherReq.OnFi
 
     @Override
     public void switchCity(String city) {
-        reqData.reqData(this, city);
+        reqData.reqData(this, city, context);
     }
 
     @Override

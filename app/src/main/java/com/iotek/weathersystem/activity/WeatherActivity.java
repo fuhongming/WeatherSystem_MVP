@@ -1,33 +1,30 @@
 package com.iotek.weathersystem.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.iotek.weathersystem.R;
 import com.iotek.weathersystem.adapter.WeatherAdapter;
-import com.iotek.weathersystem.db.Db;
-import com.iotek.weathersystem.model.City;
 import com.iotek.weathersystem.model.Result;
 import com.iotek.weathersystem.presenter.IWeatherPresenter;
 import com.iotek.weathersystem.presenter.WeatherPresenterImpl;
 import com.iotek.weathersystem.ui.IWeatherView;
 import com.iotek.weathersystem.utils.ToastUtils;
-import com.iotek.weathersystem.utils.Tools;
+import com.iotek.weathersystem.view.RefreshableView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
-
-import org.xutils.x;
 
 import java.util.List;
 
@@ -49,23 +46,48 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
     ListView lv;
 
     @ViewInject(R.id.rlBg)
+
     RelativeLayout rlBg;
+
+    @ViewInject(R.id.refreshable_view)
+    RefreshableView refreshableView;
 
     private IWeatherPresenter presenter;
     WeatherAdapter weatherAdapter;
-    public String city = "上海";
+    public String city = null;
     private final static int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_weather);
         ViewUtils.inject(this);
-        presenter = new WeatherPresenterImpl(this);
+        presenter = new WeatherPresenterImpl(this, this);
         weatherAdapter = new WeatherAdapter(this);
         lv.setAdapter(weatherAdapter);
+        refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                refreshableView.finishRefreshing();
+                handler.sendEmptyMessage(1);
+            }
+        }, 0);
 
     }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            presenter.switchCity(city);
+        }
+    };
 
     @OnItemClick(R.id.lv)
     public void OnItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -83,8 +105,6 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
     @OnClick(R.id.ivCity)
     public void ivCity(View v) {
         startCityPickerActivity();
-        overridePendingTransition(R.anim.in, R.anim.out);
-
     }
 
     @OnClick(R.id.tvCityName)
@@ -148,20 +168,28 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
     }
 
     public void showData(List<Result> result) {
-        weatherAdapter.setData(result);
         if(result==null){
+            weatherAdapter.setData(result);
             ToastUtils.showToast(WeatherActivity.this,"获取不到该城市的天气信息");
             return;
         }
+        city = result.get(0).getCitynm();
+        tvCityName.setText(city);
+        weatherAdapter.setData(result);
         String weather=result.get(0).getWeather();
         if(weather.contains("晴")){
             rlBg.setBackgroundResource(R.drawable.bg_fine_day);
         }else if(weather.contains("阴")){
-            rlBg.setBackgroundResource(R.drawable.bg01);
+            rlBg.setBackgroundResource(R.drawable.bg_cloudy);
         }else if(weather.contains("雨")) {
             rlBg.setBackgroundResource(R.drawable.bg_rain);
         }else if(weather.contains("雪")){
             rlBg.setBackgroundResource(R.drawable.bg_snow);
+        }else if(weather.contains("多云")){
+            rlBg.setBackgroundResource(R.drawable.bg_cloudy);
+
+        }else{
+            rlBg.setBackgroundResource(R.drawable.bg16);
         }
     }
 

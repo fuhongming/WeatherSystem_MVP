@@ -1,5 +1,7 @@
 package com.iotek.weathersystem.net;
 
+import android.content.Context;
+
 import com.iotek.weathersystem.model.Result;
 
 import java.util.List;
@@ -12,5 +14,5 @@ public interface IWeatherReq {
         void onFinished(List<Result> result);
     }
 
-    void reqData(OnFinishedListener listener, String city);
+    void reqData(OnFinishedListener listener, String city, Context context);
 }

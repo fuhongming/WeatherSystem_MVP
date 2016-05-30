@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-
     <application
         android:name=".commom.MyApplication"
         android:allowBackup="true"
@@ -31,9 +30,11 @@
 
 
         <activity android:name=".activity.WeatherActivity" />
+        <activity android:name=".activity.LifeActivity"/>
         <activity android:name=".activity.RealViewActivity" />
         <activity android:name=".activity.MyActivity"/>
-        <activity android:name=".activity.LifeActivity"/>
+        <activity android:name=".activity.LoginActivity"/>
+        <activity android:name=".activity.RegisterActivity"/>
         <activity
             android:name=".activity.CityPickerActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
