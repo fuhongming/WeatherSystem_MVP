@@ -1,9 +1,11 @@
 package com.iotek.weathersystem.model;
 
+import java.io.Serializable;
+
 /**
  * Created by fhm on 2016/5/28.
  */
-public class Result {
+public class Result implements Serializable{
     private String weaid;
 
     private String days;

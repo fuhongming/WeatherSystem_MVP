@@ -26,6 +26,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherActivity extends BaseActivity implements IWeatherView {
@@ -54,7 +55,8 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
 
     private IWeatherPresenter presenter;
     WeatherAdapter weatherAdapter;
-    public String city = null;
+    private List<Result> list = new ArrayList<>();
+    private Result weather = new Result();
     private final static int REQUEST_CODE = 1;
 
     @Override
@@ -69,11 +71,11 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
         refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
             public void onRefresh() {
-//                try {
-//                    Thread.sleep(2000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 refreshableView.finishRefreshing();
                 handler.sendEmptyMessage(1);
             }
@@ -85,16 +87,18 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            presenter.switchCity(city);
+            presenter.switchCity(weather.getCitynm());
         }
     };
 
     @OnItemClick(R.id.lv)
     public void OnItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        index = position;
         Intent i = new Intent(WeatherActivity.this, LifeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("weather", list.get(position));
+        i.putExtras(bundle);
         startActivity(i);
-        overridePendingTransition(R.anim.in, R.anim.out);
+//        overridePendingTransition(R.anim.in, R.anim.out);
 
     }
     @OnClick(R.id.ivShare)
@@ -121,16 +125,18 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
     @OnClick(R.id.title_location)
     public void title_location(View v) {
         showMessage("正在定位...");
-        city = "上海";
-        tvCityName.setText(city);
-        presenter.switchCity(city);
+        weather.setCitynm("上海");
+        tvCityName.setText(weather.getCitynm());
+        presenter.switchCity(weather.getCitynm());
     }
 
     @Override
     protected void onResume() {
-        city = (city == null ? city = "苏州":city);
-        tvCityName.setText(city);
-        presenter.switchCity(city);
+        if (weather.getCitynm() == null || weather.getCitynm().equals("")) {
+            weather.setCitynm("苏州");
+        }
+        tvCityName.setText(weather.getCitynm());
+        presenter.switchCity(weather.getCitynm());
         presenter.onResume();
 
         super.onResume();
@@ -144,7 +150,7 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
             if (resultCode==CityPickerActivity.RESULT_OK)
             {
                 Bundle bundle=data.getExtras();
-                city = bundle.getString("city");
+                weather.setCitynm(bundle.getString("city"));
             }
         }
     }
@@ -168,14 +174,13 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
     }
 
     public void showData(List<Result> result) {
+        weatherAdapter.setData(result);
         if(result==null){
-            weatherAdapter.setData(result);
             ToastUtils.showToast(WeatherActivity.this,"获取不到该城市的天气信息");
             return;
         }
-        city = result.get(0).getCitynm();
-        tvCityName.setText(city);
-        weatherAdapter.setData(result);
+        list = result;
+        tvCityName.setText(weather.getCitynm());
         String weather=result.get(0).getWeather();
         if(weather.contains("晴")){
             rlBg.setBackgroundResource(R.drawable.bg_fine_day);

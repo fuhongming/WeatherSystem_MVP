@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlLife"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,38 +9,49 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar"
         android:background="@android:color/holo_green_dark"
-        android:gravity="center"
         android:paddingTop="@dimen/dp20">
+        <Button
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignBottom="@+id/tvLife"
+            android:background="@drawable/title_bar_back_btn"/>
 
         <TextView
+            android:id="@+id/tvLife"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="生活资讯"
+            android:layout_centerHorizontal="true"
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_size" />
-
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rlCity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/rl">
 
         <TextView
-            android:id="@+id/tvCity"
+            android:id="@+id/tvCitynm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="中国"
+            android:text="城市"
+            android:textColor="@android:color/holo_red_light"
             android:textSize="40dp" />
 
         <TextView
+            android:id="@+id/tvWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
             android:text="周几"
+            android:textColor="@android:color/holo_red_light"
             android:textSize="30dp" />
     </RelativeLayout>
 
@@ -52,14 +64,15 @@
 
         <ImageView
             android:id="@+id/ivDress"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/dressing_index" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/ivDress"
+            android:textColor="@android:color/white"
             android:text="穿衣指数" />
 
         <TextView
@@ -68,26 +81,41 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/ivDress"
             android:layout_toRightOf="@id/ivDress"
+            android:textColor="@android:color/white"
             android:text="适度穿衣" />
 
         <TextView
             android:id="@+id/tvNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ivDressZambia1"
-            android:layout_toLeftOf="@+id/ivDressZambia1"
+            android:layout_alignBottom="@+id/cbDressZambia"
+            android:layout_toLeftOf="@+id/cbDressZambia"
+            android:textColor="@android:color/black"
             android:text="10万"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/ivDressZambia1"
+       <!-- <ImageView
+            android:id="@+id/ivDressZambia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/heart" />
+            android:onClick="onClick"
+            android:src="@drawable/heart"
+            android:clickable="true"/>-->
+        <CheckBox
+            android:id="@+id/cbDressZambia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:checked="true"
+            android:background="@drawable/heart"/>
 
     </RelativeLayout>
 
@@ -100,14 +128,15 @@
 
         <ImageView
             android:id="@+id/iv"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/sport_index" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/iv"
+            android:textColor="@android:color/white"
             android:text="运动指数" />
 
         <TextView
@@ -116,25 +145,29 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/iv"
             android:layout_toRightOf="@id/iv"
+            android:textColor="@android:color/white"
             android:text="适当运动" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ivSportZambia"
-            android:layout_toLeftOf="@+id/ivSportZambia"
+            android:layout_alignBottom="@+id/cbSportZambia"
+            android:layout_toLeftOf="@+id/cbSportZambia"
             android:text="15万"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/ivSportZambia"
+        <CheckBox
+            android:id="@+id/cbSportZambia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:button="@null"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/heart" />
+            android:checked="true"
+            android:background="@drawable/heart"/>
 
     </RelativeLayout>
 
@@ -147,14 +180,15 @@
 
         <ImageView
             android:id="@+id/ivWash"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/sport_index" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/ivWash"
+            android:textColor="@android:color/white"
             android:text="洗车指数" />
 
         <TextView
@@ -163,25 +197,30 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/ivWash"
             android:layout_toRightOf="@id/ivWash"
+            android:textColor="@android:color/white"
             android:text="合理规划洗车" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ivWashZambia"
-            android:layout_toLeftOf="@+id/ivWashZambia"
+            android:layout_alignBottom="@+id/cbWashZambia"
+            android:layout_toLeftOf="@+id/cbWashZambia"
+            android:textColor="@android:color/black"
             android:text="15万"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/ivWashZambia"
+        <CheckBox
+            android:id="@+id/cbWashZambia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:button="@null"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/heart" />
+            android:checked="true"
+            android:background="@drawable/heart"/>
+
 
     </RelativeLayout>
 
@@ -196,14 +235,15 @@
 
         <ImageView
             android:id="@+id/ivMakeup"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/sport_index" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/ivMakeup"
+            android:textColor="@android:color/white"
             android:text="化妆指数" />
 
         <TextView
@@ -212,25 +252,28 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/ivMakeup"
             android:layout_toRightOf="@id/ivMakeup"
+            android:textColor="@android:color/white"
             android:text="合理化妆" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ivMakeupZambia"
-            android:layout_toLeftOf="@+id/ivMakeupZambia"
+            android:layout_alignBottom="@+id/cbMakeupZambia"
+            android:layout_toLeftOf="@+id/cbMakeupZambia"
+            android:textColor="@android:color/black"
             android:text="15万"
             android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/ivMakeupZambia"
+        <CheckBox
+            android:id="@+id/cbMakeupZambia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:button="@null"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/heart" />
+            android:checked="true"
+            android:background="@drawable/heart"/>
 
     </RelativeLayout>
 
@@ -243,14 +286,15 @@
 
         <ImageView
             android:id="@+id/ivLight"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/sport_index" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/ivLight"
+            android:textColor="@android:color/white"
             android:text="紫外线指数" />
 
         <TextView
@@ -259,25 +303,30 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/ivLight"
             android:layout_toRightOf="@id/ivLight"
+            android:textColor="@android:color/white"
             android:text="适当运动" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ivLightZambia"
-            android:layout_toLeftOf="@+id/ivLightZambia"
+            android:layout_alignBottom="@+id/cbLightZambia"
+            android:layout_toLeftOf="@+id/cbLightZambia"
             android:text="15万"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/ivLightZambia"
+        <CheckBox
+            android:id="@+id/cbLightZambia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:button="@null"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/heart" />
+            android:checked="true"
+            android:background="@drawable/heart"/>
+
 
     </RelativeLayout>
 </RelativeLayout>
