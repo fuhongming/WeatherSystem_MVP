@@ -138,7 +138,7 @@ public class LifeActivity extends Activity {
     public void ivDressZambia(View v) {
 
         switch (v.getId()){
-            case R.id.cbDressZambia:
+/*            case R.id.cbDressZambia:
                 if (cbDressZambia.isChecked()) {
                     cbDressZambia.setBackgroundResource(R.drawable.heart);
                 } else {
@@ -172,7 +172,7 @@ public class LifeActivity extends Activity {
                 } else {
                     cbMakeupZambia.setBackgroundResource(R.drawable.heart_selected);
                 }
-                break;
+                break;*/
         }
     }
 

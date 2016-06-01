@@ -30,7 +30,7 @@
             android:textSize="@dimen/title_size" />
 
         <ImageView
-            android:id="@+id/title_location"
+            android:id="@+id/ivLocation"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_toLeftOf="@+id/ivShare"

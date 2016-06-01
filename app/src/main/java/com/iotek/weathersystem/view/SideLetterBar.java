@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.iotek.weathersystem.R;
 
 public class SideLetterBar extends View {
-    private static final String[] b = {"定位", "热门", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+    private static final String[] b = {"定位", "关注", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     private int choose = -1;
     private Paint paint = new Paint();
     private boolean showBg = false;

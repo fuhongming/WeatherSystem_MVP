@@ -1,111 +1,134 @@
 package com.iotek.weathersystem.activity;
 
-import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ViewUtils;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iotek.weathersystem.R;
-import com.iotek.weathersystem.db.SqliteData;
-import com.iotek.weathersystem.utils.ToastUtils;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.iotek.weathersystem.model.User;
+import com.iotek.weathersystem.presenter.LoginPresenter;
+import com.iotek.weathersystem.view.IUserLoginView;
+import com.lidroid.xutils.view.annotation.ViewInject;
 
-import org.xutils.view.annotation.ViewInject;
+import cn.bmob.v3.Bmob;
 
-/**
- * Created by fhm on 2016/5/30.
- */
-public class LoginActivity extends Activity {
+public class LoginActivity extends AppCompatActivity implements IUserLoginView, View.OnClickListener {
 
-    SQLiteDatabase database;
-    private SqliteData sqlitedata;
+    @ViewInject(R.id.User_Name)
+    EditText mUserName;
+    @ViewInject(R.id.User_Psd)
+    EditText mUserPsd;
+    @ViewInject(R.id.Login)
+    Button mLogin;
+    @ViewInject(R.id.tvWeibo)
+    LinearLayout mTvWeibo;
+    @ViewInject(R.id.tvQq)
+    LinearLayout mTvQq;
+    @ViewInject(R.id.login_progress)
+    ProgressBar mLoginProgress;
+    @ViewInject(R.id.forget_psd)
+    TextView mForgetPsd;
+    @ViewInject(R.id.register)
+    TextView mRegister;
 
-    private final String TABLE_NAME = "ueser";
-    private final String NAME = "name";
-    private final String PASSWORD = "password";
-    @ViewInject(R.id.btnBack)
-    Button btnBack;
-
-
-    @ViewInject(R.id.btnRegister)
-    Button btnRegister;
-    @ViewInject(R.id.btnLogin)
-    Button btnLogin;
-    @ViewInject(R.id.etUserName)
-    EditText etUserName;
-    @ViewInject(R.id.etPwd)
-    EditText etPwd;
-
+    private LoginPresenter mLoginPresenter=new LoginPresenter(this,this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ViewUtils.inject(this);
-        sqlitedata = new SqliteData(LoginActivity.this,                                // 上下文
-                "user.db", null, 1);
-        database = sqlitedata.getWritableDatabase();
+        com.lidroid.xutils.ViewUtils.inject(this);
+
+        mLogin.setOnClickListener(this);
+        mRegister.setOnClickListener(this);
+        mTvQq.setOnClickListener(this);
+        mTvWeibo.setOnClickListener(this);
+        mForgetPsd.setOnClickListener(this);
+
+//        User bmobUser= BmobUser.getCurrentUser(this,User.class);
+//        if(bmobUser!=null){
+//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//            LoginActivity.this.finish();
+//            return;
+//        }
+        // 初始化BmobSDK
+        Bmob.initialize(this, "7cdff4a819f558aad9f62a8ecc9ae33f");
     }
 
-    @OnClick({R.id.btnBack, R.id.btnRegister, R.id.btnLogin})
+    @Override
+    public String getUserName() {
+        return mUserName.getText().toString();
+    }
+
+    @Override
+    public String getPassword() {
+        return mUserPsd.getText().toString();
+    }
+
+    @Override
+    public void showLoading() {
+            mLoginProgress.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+            mLoginProgress.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void toHomeActivity(User user) {
+            mLoginPresenter.toHomeActivity();
+    }
+
+    @Override
+    public void showFailedError() {
+        Toast.makeText(LoginActivity.this
+                , "用户名或者密码错误", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public Context getContext() {
+        return LoginActivity.this;
+    }
+
+    @Override
+    public void ErrorOfUsnAndPsd() {
+        if (TextUtils.isEmpty(mUserName.getText().toString()) || TextUtils.isEmpty(mUserPsd.getText().toString())) {
+            showFailedError();
+        };
+    }
+
+    @Override
     public void onClick(View v) {
-        Intent intent;
-
-        switch (v.getId()) {
-            case R.id.btnBack:
-                finish();
+        switch (v.getId()){
+            case R.id.Login:
+                mLoginPresenter.login();
                 break;
-            case R.id.btnRegister:
-                 intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                 startActivity(intent);
-
+            case R.id.register:
+                mLoginPresenter.toRegisterActivity();
                 break;
-            case R.id.btnLogin:
-                if(etUserName==null||etPwd==null){
-                    ToastUtils.showToast(LoginActivity.this,"用户名或密码为空");
-                }
-                String inputName = etUserName.getText().toString();
-                String inputPwd = etPwd.getText().toString();
-                ContentValues values = new ContentValues();
-
-
-                String selectionName = "name = ?";
-                String selectionPwd = "password = ?";
-                String[] selectionArgsName = {inputName};
-                String[] selectionArgsPwd = {inputPwd};
-                Cursor cursor = database.query(TABLE_NAME, null, selectionName,
-                        selectionArgsName, null, null, null);
-                String name = "";
-                String password = "";
-                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    name = cursor.getString(cursor.getColumnIndex(NAME));
-                    password = cursor.getString(cursor.getColumnIndex(PASSWORD));
-                }
-                if (name != ("") && name != null && password != null && name.equals(inputName)
-                        && password.equals(inputPwd)) {
-                    Toast.makeText(getBaseContext(),
-                            "登录成功！", Toast.LENGTH_SHORT)
-                            .show();
-
-
-                    intent = new Intent(LoginActivity.this, WeatherActivity.class);
-                    startActivity(intent);
-
-                } else {
-                    Toast.makeText(getBaseContext(),
-                            "登录失败！", Toast.LENGTH_SHORT)
-                            .show();
-                }
+//            case R.id.forget_psd:
+            case R.id.tvQq:
+                Toast.makeText(LoginActivity.this,"Sorry，该功能还未开放！",Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.tvWeibo:
+                Toast.makeText(getApplicationContext(),"Sorry，该功能还未开放！",Toast.LENGTH_SHORT).show();
+                break;
+
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLoginPresenter=null;
+    }
 }
-
-
-

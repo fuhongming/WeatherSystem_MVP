@@ -94,17 +94,6 @@
             android:text="10万"
             android:textSize="18sp" />
 
-       <!-- <ImageView
-            android:id="@+id/ivDressZambia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="15dp"
-            android:onClick="onClick"
-            android:src="@drawable/heart"
-            android:clickable="true"/>-->
         <CheckBox
             android:id="@+id/cbDressZambia"
             android:layout_width="wrap_content"
@@ -114,8 +103,9 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:checked="true"
-            android:background="@drawable/heart"/>
+            android:clickable="false"
+            android:focusable="false"
+            android:background="@drawable/zambia_selector"/>
 
     </RelativeLayout>
 
@@ -166,8 +156,9 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:checked="true"
-            android:background="@drawable/heart"/>
+            android:clickable="false"
+            android:focusable="false"
+            android:background="@drawable/zambia_selector"/>
 
     </RelativeLayout>
 
@@ -218,8 +209,9 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:checked="true"
-            android:background="@drawable/heart"/>
+            android:clickable="false"
+            android:focusable="false"
+            android:background="@drawable/zambia_selector"/>
 
 
     </RelativeLayout>
@@ -272,8 +264,9 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:checked="true"
-            android:background="@drawable/heart"/>
+            android:clickable="false"
+            android:focusable="false"
+            android:background="@drawable/zambia_selector"/>
 
     </RelativeLayout>
 
@@ -324,9 +317,10 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:checked="true"
-            android:background="@drawable/heart"/>
-
+            android:clickable="false"
+            android:focusable="false"
+            android:background="@drawable/zambia_selector"/>
+       <!-- android:checked="true"-->
 
     </RelativeLayout>
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -13,6 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.iotek.weathersystem.R;
 import com.iotek.weathersystem.adapter.WeatherAdapter;
 import com.iotek.weathersystem.model.Result;
@@ -20,19 +25,18 @@ import com.iotek.weathersystem.presenter.IWeatherPresenter;
 import com.iotek.weathersystem.presenter.WeatherPresenterImpl;
 import com.iotek.weathersystem.ui.IWeatherView;
 import com.iotek.weathersystem.utils.ToastUtils;
+import com.iotek.weathersystem.utils.Tools;
 import com.iotek.weathersystem.view.RefreshableView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherActivity extends BaseActivity implements IWeatherView {
-
-    @ViewInject(R.id.tvCityName)
-    TextView tvCityName;
 
     @ViewInject(R.id.progress)
     private ProgressBar progressBar;
@@ -53,11 +57,23 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
     @ViewInject(R.id.refreshable_view)
     RefreshableView refreshableView;
 
+    @ViewInject(R.id.tvCityName)
+    TextView tvCityName;
+
+    @ViewInject(R.id.ivLocation)
+    ImageView ivLocation;
+
     private IWeatherPresenter presenter;
     WeatherAdapter weatherAdapter;
     private List<Result> list = new ArrayList<>();
     private Result weather = new Result();
     private final static int REQUEST_CODE = 1;
+
+    private LocationClient locationClient = null;
+    private static final int UPDATE_TIME = 5000;
+    String citynm;
+
+    StringBuffer sb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +84,7 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
         presenter = new WeatherPresenterImpl(this, this);
         weatherAdapter = new WeatherAdapter(this);
         lv.setAdapter(weatherAdapter);
+
         refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
             public void onRefresh() {
@@ -81,6 +98,49 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
             }
         }, 0);
 
+
+        locationClient = new LocationClient(this);
+        // 设置定位条件
+        LocationClientOption option = new LocationClientOption();
+        option.setAddrType("all");
+        option.setOpenGps(true); // 是否打开GPS
+        option.setCoorType("bd09ll"); // 设置返回值的坐标类型。
+        option.setPriority(LocationClientOption.NetWorkFirst); // 设置定位优先级
+        option.setProdName("LocationDemo"); // 设置产品线名称。强烈建议您使用自定义的产品线名称，方便我们以后为您提供更高效准确的定位服务。
+        option.setScanSpan(UPDATE_TIME); // 设置定时定位的时间间隔。单位毫秒
+        locationClient.setLocOption(option);
+
+        // 注册位置监听器
+        locationClient.registerLocationListener(new BDLocationListener() {
+
+            @Override
+            public void onReceiveLocation(BDLocation location) {
+                if (location == null) {
+                    return;
+                }
+                sb = new StringBuffer(256);
+
+                if (location.getLocType() == BDLocation.TypeGpsLocation) {
+                    // sb.append("\nSpeed : ");
+                    sb.append(location.getSpeed());
+                    // sb.append("\nSatellite : ");
+                    sb.append(location.getSatelliteNumber());
+                } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                    // sb.append("\nAddress : ");
+                    sb.append(location.getCity());
+                    // String = location.getCity();
+                }
+                citynm = sb.toString();
+                tvCityName.setText(sb.toString() + citynm);
+
+                Log.i("1245", citynm + "");
+            }
+
+            public void onReceivePoi(BDLocation location) {
+
+            }
+
+        });
     }
 
     Handler handler = new Handler() {
@@ -101,6 +161,7 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
 //        overridePendingTransition(R.anim.in, R.anim.out);
 
     }
+
     @OnClick(R.id.ivShare)
     public void ivShare(View v) {
 
@@ -122,12 +183,24 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
         startActivityForResult(intent, REQUEST_CODE);
     }
 
-    @OnClick(R.id.title_location)
-    public void title_location(View v) {
-        showMessage("正在定位...");
-        weather.setCitynm("上海");
-        tvCityName.setText(weather.getCitynm());
+    @OnClick(R.id.ivLocation)
+    public void ivLocation(View v) {
+        if (locationClient == null) {
+            return;
+        }
+        if (locationClient.isStarted()) {
+            locationClient.stop();
+        } else {
+            locationClient.start();
+            locationClient.requestLocation();
+        }
+//        tvCityName.setText(sb.toString()+citynm);
+
+//        showMessage("正在定位...");
+//        weather.setCitynm("上海");
+//        tvCityName.setText(weather.getCitynm());
         presenter.switchCity(weather.getCitynm());
+
     }
 
     @Override
@@ -143,13 +216,10 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode==REQUEST_CODE)
-        {
-            if (resultCode==CityPickerActivity.RESULT_OK)
-            {
-                Bundle bundle=data.getExtras();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == CityPickerActivity.RESULT_OK) {
+                Bundle bundle = data.getExtras();
                 weather.setCitynm(bundle.getString("city"));
             }
         }
@@ -159,6 +229,10 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
     protected void onDestroy() {
         presenter.onDestroy();
         super.onDestroy();
+        if (locationClient != null && locationClient.isStarted()) {
+            locationClient.stop();
+            locationClient = null;
+        }
     }
 
     @Override
@@ -175,25 +249,25 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
 
     public void showData(List<Result> result) {
         weatherAdapter.setData(result);
-        if(result==null){
-            ToastUtils.showToast(WeatherActivity.this,"获取不到该城市的天气信息");
+        if (result == null) {
+            ToastUtils.showToast(WeatherActivity.this, "获取不到该城市的天气信息");
             return;
         }
         list = result;
         tvCityName.setText(weather.getCitynm());
-        String weather=result.get(0).getWeather();
-        if(weather.contains("晴")){
+        String weather = result.get(0).getWeather();
+        if (weather.contains("晴")) {
             rlBg.setBackgroundResource(R.drawable.bg_fine_day);
-        }else if(weather.contains("阴")){
+        } else if (weather.contains("阴")) {
             rlBg.setBackgroundResource(R.drawable.bg_cloudy);
-        }else if(weather.contains("雨")) {
+        } else if (weather.contains("雨")) {
             rlBg.setBackgroundResource(R.drawable.bg_rain);
-        }else if(weather.contains("雪")){
+        } else if (weather.contains("雪")) {
             rlBg.setBackgroundResource(R.drawable.bg_snow);
-        }else if(weather.contains("多云")){
+        } else if (weather.contains("多云")) {
             rlBg.setBackgroundResource(R.drawable.bg_cloudy);
 
-        }else{
+        } else {
             rlBg.setBackgroundResource(R.drawable.bg16);
         }
     }
