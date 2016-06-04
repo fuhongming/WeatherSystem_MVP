@@ -15,11 +15,13 @@ import android.widget.TextView;
 
 import com.iotek.weathersystem.R;
 import com.iotek.weathersystem.adapter.WeatherAdapter;
+import com.iotek.weathersystem.model.GraphItem;
 import com.iotek.weathersystem.model.Result;
 import com.iotek.weathersystem.presenter.IWeatherPresenter;
 import com.iotek.weathersystem.presenter.WeatherPresenterImpl;
 import com.iotek.weathersystem.ui.IWeatherView;
 import com.iotek.weathersystem.utils.ToastUtils;
+import com.iotek.weathersystem.view.GraphView;
 import com.iotek.weathersystem.view.RefreshableView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -50,7 +52,7 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
 
     RelativeLayout rlBg;
 
-    @ViewInject(R.id.refreshable_view)
+    @ViewInject(R.id.refreshable_view)//下拉刷新，自定义view
     RefreshableView refreshableView;
 
     private IWeatherPresenter presenter;
@@ -68,6 +70,10 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
         presenter = new WeatherPresenterImpl(this, this);
         weatherAdapter = new WeatherAdapter(this);
         lv.setAdapter(weatherAdapter);
+
+        /**
+         * 刷新数据信息
+         */
         refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
             public void onRefresh() {
@@ -91,6 +97,13 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
         }
     };
 
+    /**
+     * activity之间传值
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @OnItemClick(R.id.lv)
     public void OnItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent i = new Intent(WeatherActivity.this, LifeActivity.class);
@@ -132,15 +145,16 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
 
     @Override
     protected void onResume() {
+        super.onResume();
         if (weather.getCitynm() == null || weather.getCitynm().equals("")) {
             weather.setCitynm("苏州");
         }
         tvCityName.setText(weather.getCitynm());
         presenter.switchCity(weather.getCitynm());
         presenter.onResume();
-
-        super.onResume();
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -187,7 +201,7 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
         }else if(weather.contains("阴")){
             rlBg.setBackgroundResource(R.drawable.bg_cloudy);
         }else if(weather.contains("雨")) {
-            rlBg.setBackgroundResource(R.drawable.bg_rain);
+            rlBg.setBackgroundResource(R.drawable.rain_bg);
         }else if(weather.contains("雪")){
             rlBg.setBackgroundResource(R.drawable.bg_snow);
         }else if(weather.contains("多云")){

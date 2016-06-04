@@ -26,7 +26,7 @@ public class MyActivity extends BaseActivity {
     }
     @OnClick(R.id.ivLogin)
     public void ivLogin(View v){
-        Intent intent =new Intent(MyActivity.this,LoginActivity.class);
-        startActivity(intent);
+//        Intent intent =new Intent(MyActivity.this,LoginActivity.class);
+//        startActivity(intent);
     }
 }

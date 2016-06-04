@@ -228,7 +228,7 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
                 mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 //                mInputMethodManager.showSoftInput(editText, 0);
 //                mInputMethodManager.showSoftInputFromInputMethod(searchBox.getWindowToken(), 0);
-                  mInputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                mInputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 String cityName = editText.getText().toString();
                 if (!cityName.equals("") && cityName != null) {

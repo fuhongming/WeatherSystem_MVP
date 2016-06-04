@@ -4,7 +4,7 @@
     <item android:state_focused="true" android:drawable="@drawable/heart_selected" />
     <item android:state_pressed="true" android:drawable="@drawable/heart_selected" />
     <item android:drawable="@drawable/heart" />-->
-    <item android:state_pressed="true" android:drawable="@drawable/heart_selected"/>
-    <item android:state_selected="true" android:drawable="@drawable/city_search" />
-    <item android:drawable="@drawable/heart"/>
+    <item android:state_checked="true" android:drawable="@drawable/heart_selected"/>
+    <item android:state_checked="false" android:drawable="@drawable/heart"/>
+
 </selector>
