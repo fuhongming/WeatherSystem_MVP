@@ -48,7 +48,7 @@ public class CityListAdapter extends BaseAdapter {
             mCities = new ArrayList<>();
         }
         mCities.add(0, new City("定位", "0"));
-        mCities.add(1, new City("热门", "1"));
+        mCities.add(1, new City("关注", "1"));
         int size = mCities.size();
         letterIndexes = new HashMap<>();
         sections = new String[size];
@@ -156,7 +156,7 @@ public class CityListAdapter extends BaseAdapter {
                     }
                 });
                 break;
-            case 1:     //热门
+            case 1:     //关注
                 view = inflater.inflate(R.layout.view_hot_city, parent, false);
                 WrapHeightGridView gridView = (WrapHeightGridView) view.findViewById(R.id.gridview_hot_city);
                 hotCityGridAdapter = new HotCityGridAdapter(mContext);

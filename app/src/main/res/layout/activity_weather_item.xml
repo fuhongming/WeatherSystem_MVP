@@ -43,8 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imgWeather"
             android:layout_weight="1"
-            android:text="风力"
-            android:visibility="gone" />
+            android:text="风力" />
 
         <ImageView
             android:id="@+id/imgWeather"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -15,13 +16,11 @@ import android.widget.TextView;
 
 import com.iotek.weathersystem.R;
 import com.iotek.weathersystem.adapter.WeatherAdapter;
-import com.iotek.weathersystem.model.GraphItem;
 import com.iotek.weathersystem.model.Result;
 import com.iotek.weathersystem.presenter.IWeatherPresenter;
 import com.iotek.weathersystem.presenter.WeatherPresenterImpl;
 import com.iotek.weathersystem.ui.IWeatherView;
 import com.iotek.weathersystem.utils.ToastUtils;
-import com.iotek.weathersystem.view.GraphView;
 import com.iotek.weathersystem.view.RefreshableView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -32,9 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherActivity extends BaseActivity implements IWeatherView {
-
-    @ViewInject(R.id.tvCityName)
-    TextView tvCityName;
 
     @ViewInject(R.id.progress)
     private ProgressBar progressBar;
@@ -55,11 +51,21 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
     @ViewInject(R.id.refreshable_view)//下拉刷新，自定义view
     RefreshableView refreshableView;
 
+    @ViewInject(R.id.tvCityName)
+    TextView tvCityName;
+
+    @ViewInject(R.id.ivLocation)
+    ImageView ivLocation;
+
     private IWeatherPresenter presenter;
     WeatherAdapter weatherAdapter;
     private List<Result> list = new ArrayList<>();
     private Result weather = new Result();
     private final static int REQUEST_CODE = 1;
+
+    private static final int UPDATE_TIME = 5000;
+    String citynm;
+    StringBuffer sb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +120,7 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
 //        overridePendingTransition(R.anim.in, R.anim.out);
 
     }
+
     @OnClick(R.id.ivShare)
     public void ivShare(View v) {
 
@@ -135,12 +142,14 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
         startActivityForResult(intent, REQUEST_CODE);
     }
 
-    @OnClick(R.id.title_location)
-    public void title_location(View v) {
-        showMessage("正在定位...");
-        weather.setCitynm("上海");
-        tvCityName.setText(weather.getCitynm());
+    @OnClick(R.id.ivLocation)
+    public void ivLocation(View v) {
+//        tvCityName.setText(sb.toString()+citynm);
+//        showMessage("正在定位...");
+//        weather.setCitynm("上海");
+//        tvCityName.setText(weather.getCitynm());
         presenter.switchCity(weather.getCitynm());
+
     }
 
     @Override
@@ -157,13 +166,10 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode==REQUEST_CODE)
-        {
-            if (resultCode==CityPickerActivity.RESULT_OK)
-            {
-                Bundle bundle=data.getExtras();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == CityPickerActivity.RESULT_OK) {
+                Bundle bundle = data.getExtras();
                 weather.setCitynm(bundle.getString("city"));
             }
         }
@@ -189,25 +195,25 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
 
     public void showData(List<Result> result) {
         weatherAdapter.setData(result);
-        if(result==null){
-            ToastUtils.showToast(WeatherActivity.this,"获取不到该城市的天气信息");
+        if (result == null) {
+            ToastUtils.showToast(WeatherActivity.this, "获取不到该城市的天气信息");
             return;
         }
         list = result;
         tvCityName.setText(weather.getCitynm());
-        String weather=result.get(0).getWeather();
-        if(weather.contains("晴")){
+        String weather = result.get(0).getWeather();
+        if (weather.contains("晴")) {
             rlBg.setBackgroundResource(R.drawable.bg_fine_day);
-        }else if(weather.contains("阴")){
+        } else if (weather.contains("阴")) {
             rlBg.setBackgroundResource(R.drawable.bg_cloudy);
         }else if(weather.contains("雨")) {
             rlBg.setBackgroundResource(R.drawable.rain_bg);
-        }else if(weather.contains("雪")){
+        }else if (weather.contains("雪")) {
             rlBg.setBackgroundResource(R.drawable.bg_snow);
-        }else if(weather.contains("多云")){
+        } else if (weather.contains("多云")) {
             rlBg.setBackgroundResource(R.drawable.bg_cloudy);
 
-        }else{
+        } else {
             rlBg.setBackgroundResource(R.drawable.bg16);
         }
     }

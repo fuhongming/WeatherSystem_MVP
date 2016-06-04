@@ -1,13 +1,11 @@
 package com.iotek.weathersystem.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.iotek.weathersystem.R;
@@ -16,7 +14,6 @@ import com.iotek.weathersystem.model.Result;
 import com.iotek.weathersystem.utils.BitmapHelp;
 import com.iotek.weathersystem.view.GraphView;
 import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -133,47 +133,4 @@ public class LifeActivity extends Activity {
     public void back(View v) {
         finish();
     }
-
-    @OnClick({R.id.cbDressZambia,R.id.cbSportZambia,R.id.cbDressZambia,R.id.cbWashZambia,R.id.cbMakeupZambia,R.id.cbLightZambia})
-    public void ivDressZambia(View v) {
-
-        switch (v.getId()){
-          /*  case R.id.cbDressZambia:
-                if (cbDressZambia.isChecked()) {
-                    cbDressZambia.setBackgroundResource(R.drawable.heart);
-                } else {
-                    cbDressZambia.setBackgroundResource(R.drawable.heart_selected);
-                }
-                break;
-            case R.id.cbSportZambia:
-                if (cbSportZambia.isChecked()) {
-                    cbSportZambia.setBackgroundResource(R.drawable.heart);
-                } else {
-                    cbSportZambia.setBackgroundResource(R.drawable.heart_selected);
-                }
-                break;
-            case R.id.cbWashZambia:
-                if (cbWashZambia.isChecked()) {
-                    cbWashZambia.setBackgroundResource(R.drawable.heart);
-                } else {
-                    cbWashZambia.setBackgroundResource(R.drawable.heart_selected);
-                }
-                break;
-            case R.id.cbLightZambia:
-                if (cbLightZambia.isChecked()) {
-                    cbLightZambia.setBackgroundResource(R.drawable.heart);
-                } else {
-                    cbLightZambia.setBackgroundResource(R.drawable.heart_selected);
-                }
-                break;
-            case R.id.cbMakeupZambia:
-                if (cbMakeupZambia.isChecked()) {
-                    cbMakeupZambia.setBackgroundResource(R.drawable.heart);
-                } else {
-                    cbMakeupZambia.setBackgroundResource(R.drawable.heart_selected);
-                }
-                break;*/
-        }
-    }
-
 }
