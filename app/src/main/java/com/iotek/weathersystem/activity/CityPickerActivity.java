@@ -1,16 +1,11 @@
 package com.iotek.weathersystem.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -20,27 +15,24 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
 import com.iotek.weathersystem.R;
 import com.iotek.weathersystem.adapter.CityListAdapter;
 import com.iotek.weathersystem.adapter.ResultListAdapter;
+import com.iotek.weathersystem.commom.MyApplication;
 import com.iotek.weathersystem.db.DBManager;
 import com.iotek.weathersystem.db.Db;
 import com.iotek.weathersystem.model.City;
 import com.iotek.weathersystem.model.LocateState;
+import com.iotek.weathersystem.service.LocationService;
 import com.iotek.weathersystem.utils.StringUtils;
 import com.iotek.weathersystem.utils.ToastUtils;
-import com.iotek.weathersystem.utils.Tools;
 import com.iotek.weathersystem.view.CustomDialog;
 import com.iotek.weathersystem.view.SideLetterBar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,16 +45,17 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
     private EditText searchBox;      //搜索城市输入框
     private ImageView clearBtn;      //清空输入框内容
     private Button backBtn;       //返回天气界面
-    private ViewGroup emptyView;
+    private ViewGroup emptyView;  //搜索框布局
 
     private CityListAdapter mCityAdapter;
     private ResultListAdapter mResultAdapter;
     private List<City> mAllCities;
     private DBManager dbManager;
 
-    private AMapLocationClient mLocationClient;
     private InputMethodManager mInputMethodManager;
     CustomDialog dialog;
+
+    private LocationService locationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,35 +64,46 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
 
         initData();
         initView();
-        initLocation();
     }
 
-    private void initLocation() {
-        mLocationClient = new AMapLocationClient(this);
-        AMapLocationClientOption option = new AMapLocationClientOption();
-        option.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        option.setOnceLocation(true);
-        mLocationClient.setLocationOption(option);
-        mLocationClient.setLocationListener(new AMapLocationListener() {
-            @Override
-            public void onLocationChanged(AMapLocation aMapLocation) {
-                if (aMapLocation != null) {
-                    if (aMapLocation.getErrorCode() == 0) {
-                        String city = aMapLocation.getCity();
-                        String district = aMapLocation.getDistrict();
-                        Log.e("onLocationChanged", "city: " + city);
-                        Log.e("onLocationChanged", "district: " + district);
-                        String location = StringUtils.extractLocation(city, district);
-                        mCityAdapter.updateLocateState(LocateState.SUCCESS, location);
-                    } else {
-                        //定位失败
-                        mCityAdapter.updateLocateState(LocateState.FAILED, null);
-                    }
-                }
-            }
-        });
-        mLocationClient.startLocation();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // -----------location config ------------
+        locationService = ((MyApplication) getApplication()).locationService;
+        //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
+        locationService.registerListener(mListener);
+        //注册监听
+        int type = getIntent().getIntExtra("from", 0);
+        if (type == 0) {
+            locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+        } else if (type == 1) {
+            locationService.setLocationOption(locationService.getOption());
+        }
+        locationService.start();
     }
+
+
+    /*****
+     * 定位结果回调，重写onReceiveLocation方法
+     */
+    private BDLocationListener mListener = new BDLocationListener() {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+//                String loc = StringUtils.extractLocation(location.getCity(), district);
+//                String city=location.getAddrStr();
+                String city=location.getCity().substring(0,location.getCity().length()-1);
+
+
+                mCityAdapter.updateLocateState(LocateState.SUCCESS,city );
+            } else {
+                mCityAdapter.updateLocateState(LocateState.FAILED, null);
+            }
+        }
+
+    };
 
     private void initData() {
         dbManager = new DBManager(this);
@@ -109,14 +113,14 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
 
         mCityAdapter.setOnCityClickListener(new CityListAdapter.OnCityClickListener() {
             @Override
-            public void onCityClick(String name) {   //热门城市、所有城市列表item项点击事件响应
+            public void onCityClick(String name) {   //关注城市、所有城市列表item项点击事件响应
                 back(name);
             }
 
             @Override
             public void onLocateClick() {  //定位
                 mCityAdapter.updateLocateState(LocateState.LOCATING, null);
-                mLocationClient.startLocation();
+                locationService.start();
             }
         });
 
@@ -178,7 +182,6 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //搜索结果item项
                 back(mResultAdapter.getItem(position).getName());
-
             }
         });
 
@@ -248,6 +251,5 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mLocationClient.stopLocation();
     }
 }

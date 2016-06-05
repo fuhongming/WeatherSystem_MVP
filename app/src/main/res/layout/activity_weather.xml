@@ -30,13 +30,6 @@
             android:textSize="@dimen/title_size" />
 
         <ImageView
-            android:id="@+id/ivLocation"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_toLeftOf="@+id/ivShare"
-            android:src="@drawable/base_action_bar_action_city" />
-
-        <ImageView
             android:id="@+id/ivShare"
             android:layout_width="50dp"
             android:layout_height="50dp"

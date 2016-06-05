@@ -54,18 +54,11 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
     @ViewInject(R.id.tvCityName)
     TextView tvCityName;
 
-    @ViewInject(R.id.ivLocation)
-    ImageView ivLocation;
-
     private IWeatherPresenter presenter;
     WeatherAdapter weatherAdapter;
     private List<Result> list = new ArrayList<>();
     private Result weather = new Result();
     private final static int REQUEST_CODE = 1;
-
-    private static final int UPDATE_TIME = 5000;
-    String citynm;
-    StringBuffer sb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,15 +135,6 @@ public class WeatherActivity extends BaseActivity implements IWeatherView {
         startActivityForResult(intent, REQUEST_CODE);
     }
 
-    @OnClick(R.id.ivLocation)
-    public void ivLocation(View v) {
-//        tvCityName.setText(sb.toString()+citynm);
-//        showMessage("正在定位...");
-//        weather.setCitynm("上海");
-//        tvCityName.setText(weather.getCitynm());
-        presenter.switchCity(weather.getCitynm());
-
-    }
 
     @Override
     protected void onResume() {

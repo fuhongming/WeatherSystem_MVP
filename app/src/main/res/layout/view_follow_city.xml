@@ -9,10 +9,10 @@
 
     <TextView
         style="@style/LetterIndexTextViewStyle"
-        android:text="@string/hot_city" />
+        android:text="@string/follow_city" />
 
     <com.iotek.weathersystem.view.WrapHeightGridView
-        android:id="@+id/gridview_hot_city"
+        android:id="@+id/gridview_follow_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:cacheColorHint="@android:color/transparent"

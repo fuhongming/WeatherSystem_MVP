@@ -3,7 +3,6 @@ package com.iotek.weathersystem.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.renderscript.ScriptGroup;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +12,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.iotek.weathersystem.R;
-import com.iotek.weathersystem.db.Db;
 import com.iotek.weathersystem.model.City;
 import com.iotek.weathersystem.model.LocateState;
 import com.iotek.weathersystem.utils.PinyinUtils;
-import com.iotek.weathersystem.utils.ToastUtils;
 import com.iotek.weathersystem.view.WrapHeightGridView;
 
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ public class CityListAdapter extends BaseAdapter {
     private OnCityClickListener onCityClickListener;
     private int locateState = LocateState.LOCATING;
     private String locatedCity;
-    HotCityGridAdapter hotCityGridAdapter;
+    FollowCityGridAdapter followCityGridAdapter;
 
     public CityListAdapter(Context mContext, List<City> mCities) {
         this.mContext = mContext;
@@ -87,11 +84,11 @@ public class CityListAdapter extends BaseAdapter {
     }
 
     public void addCity(City city) {
-        hotCityGridAdapter.addCity(city);
+        followCityGridAdapter.addCity(city);
     }
 
     public void delCity(int index) {
-        hotCityGridAdapter.delCity(index);
+        followCityGridAdapter.delCity(index);
     }
 
     @Override
@@ -157,15 +154,15 @@ public class CityListAdapter extends BaseAdapter {
                 });
                 break;
             case 1:     //关注
-                view = inflater.inflate(R.layout.view_hot_city, parent, false);
-                WrapHeightGridView gridView = (WrapHeightGridView) view.findViewById(R.id.gridview_hot_city);
-                hotCityGridAdapter = new HotCityGridAdapter(mContext);
-                gridView.setAdapter(hotCityGridAdapter);
+                view = inflater.inflate(R.layout.view_follow_city, parent, false);
+                WrapHeightGridView gridView = (WrapHeightGridView) view.findViewById(R.id.gridview_follow_city);
+                followCityGridAdapter = new FollowCityGridAdapter(mContext);
+                gridView.setAdapter(followCityGridAdapter);
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         if (onCityClickListener != null) {
-                            onCityClickListener.onCityClick(hotCityGridAdapter.getItem(position));
+                            onCityClickListener.onCityClick(followCityGridAdapter.getItem(position));
                         }
                     }
                 });

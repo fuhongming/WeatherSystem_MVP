@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="城市"
             android:textColor="@android:color/holo_red_light"
-            android:textSize="40dp" />
+            android:textSize="30dp" />
 
         <TextView
             android:id="@+id/tvWeek"
@@ -104,8 +104,6 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:checked="false"
-            android:clickable="false"
-            android:focusable="false"
             android:background="@drawable/zambia_selector"/>
 
     </RelativeLayout>
@@ -158,8 +156,6 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:checked="false"
-            android:clickable="false"
-            android:focusable="false"
             android:background="@drawable/zambia_selector"/>
 
     </RelativeLayout>
@@ -212,8 +208,6 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:checked="false"
-            android:clickable="false"
-            android:focusable="false"
             android:background="@drawable/zambia_selector"/>
 
 
@@ -268,8 +262,6 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:checked="false"
-            android:clickable="false"
-            android:focusable="false"
             android:background="@drawable/zambia_selector"/>
 
     </RelativeLayout>
@@ -323,10 +315,6 @@
             android:layout_marginTop="15dp"
             android:checked="false"
             android:background="@drawable/zambia_selector"/>
-            android:clickable="false"
-            android:focusable="false"
-            android:background="@drawable/zambia_selector"/>
-       <!-- android:checked="true"-->
 
     </RelativeLayout>
 </RelativeLayout>
