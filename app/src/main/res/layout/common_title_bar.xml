@@ -13,8 +13,8 @@
 
         <Button
             android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:layout_alignBottom="@+id/tvSelect"
@@ -31,16 +31,14 @@
 
         <Button
             android:id="@+id/addCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:background="@null"
+            android:background="@drawable/add_normal"
             android:layout_alignBottom="@+id/tvSelect"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:text="+"
-            android:textColor="@android:color/white"
-            android:textSize="30dp" />
+            android:textColor="@android:color/white"/>
     </RelativeLayout>
 
     <View

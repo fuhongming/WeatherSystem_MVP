@@ -33,13 +33,6 @@ public class WeatherReqImpl implements IWeatherReq {
     @Override
     public void reqData(final OnFinishedListener listener, String city, Context context) {
         //请求数据
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//            }
-//        }, 3000);
-
-
         if (Tools.isNetConn(context)) {
             getDataTask("http://api.k780.com:88/?app=weather.future&weaid=" + city + "&&appkey=19106&sign=0b907c12b37b9d71933c1532b2864113&format=json", listener);
 

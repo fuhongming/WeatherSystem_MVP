@@ -30,6 +30,7 @@ import com.iotek.weathersystem.model.LocateState;
 import com.iotek.weathersystem.service.LocationService;
 import com.iotek.weathersystem.utils.StringUtils;
 import com.iotek.weathersystem.utils.ToastUtils;
+import com.iotek.weathersystem.utils.Tools;
 import com.iotek.weathersystem.view.CustomDialog;
 import com.iotek.weathersystem.view.SideLetterBar;
 
@@ -47,15 +48,15 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
     private Button backBtn;       //返回天气界面
     private ViewGroup emptyView;  //搜索框布局
 
-    private CityListAdapter mCityAdapter;
-    private ResultListAdapter mResultAdapter;
-    private List<City> mAllCities;
+    private CityListAdapter mCityAdapter;  //城市列表适配器
+    private ResultListAdapter mResultAdapter; //搜索结果适配器
+    private List<City> mAllCities;  //城市列表
     private DBManager dbManager;
 
     private InputMethodManager mInputMethodManager;
-    CustomDialog dialog;
+    CustomDialog dialog;  //自定义对话框，添加城市
 
-    private LocationService locationService;
+    private LocationService locationService;  //定位服务
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,12 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
         locationService.start();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        locationService.stop();
+
+    }
 
     /*****
      * 定位结果回调，重写onReceiveLocation方法
@@ -119,8 +126,8 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
 
             @Override
             public void onLocateClick() {  //定位
-                mCityAdapter.updateLocateState(LocateState.LOCATING, null);
                 locationService.start();
+                mCityAdapter.updateLocateState(LocateState.LOCATING, null);
             }
         });
 
@@ -194,6 +201,11 @@ public class CityPickerActivity extends Activity implements View.OnClickListener
     }
 
     private void back(String city) {
+        if(!Tools.isNetConn(this)){
+            ToastUtils.showToast(this,"网络无连接，获取不到该城市的天气");
+            return;
+        }
+
         Intent data = new Intent();
         data.putExtra("city", city);
         setResult(RESULT_OK, data);

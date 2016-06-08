@@ -15,9 +15,6 @@ import com.iotek.weathersystem.model.City;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * author zaaach on 2016/1/26.
- */
 public class FollowCityGridAdapter extends BaseAdapter {
     private Context mContext;
     private List<City> mCities;
@@ -62,7 +59,7 @@ public class FollowCityGridAdapter extends BaseAdapter {
         if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_follow_city_gridview, parent, false);
             holder = new HotCityViewHolder();
-            holder.name = (TextView) view.findViewById(R.id.tv_hot_city_name);
+            holder.name = (TextView) view.findViewById(R.id.tv_follow_city_name);
             view.setTag(holder);
         } else {
             holder = (HotCityViewHolder) view.getTag();

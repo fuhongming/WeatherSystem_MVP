@@ -21,9 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * author zaaach on 2016/1/26.
- */
 public class CityListAdapter extends BaseAdapter {
     private static final int VIEW_TYPE_COUNT = 3;
 
@@ -176,7 +173,7 @@ public class CityListAdapter extends BaseAdapter {
                 });
                 break;
             case 2:     //所有
-                if (view == null) {
+               if (view == null) {
                     view = inflater.inflate(R.layout.item_city_listview, parent, false);
                     holder = new CityViewHolder();
                     holder.letter = (TextView) view.findViewById(R.id.tv_item_city_listview_letter);

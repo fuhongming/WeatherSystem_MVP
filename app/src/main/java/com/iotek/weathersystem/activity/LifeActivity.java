@@ -40,18 +40,6 @@ public class LifeActivity extends Activity {
     @ViewInject(R.id.cbDressZambia)
     CheckBox cbDressZambia;
 
-    @ViewInject(R.id.cbSportZambia)
-    CheckBox cbSportZambia;
-
-    @ViewInject(R.id.cbMakeupZambia)
-    CheckBox cbMakeupZambia;
-
-    @ViewInject(R.id.cbWashZambia)
-    CheckBox cbWashZambia;
-
-    @ViewInject(R.id.cbLightZambia)
-    CheckBox cbLightZambia;
-
     @ViewInject(R.id.rlLife)
     RelativeLayout rlLife;
 
@@ -67,6 +55,10 @@ public class LifeActivity extends Activity {
         int temp_high = Integer.parseInt(weather.getTemp_high());
         tvCitynm.setText(weather.getCitynm());
         tvWeek.setText(weather.getWeek());
+        lifeIndex(we, temp_high);
+    }
+
+    private void lifeIndex(String we, int temp_high) {
         if (we.contains("雨")) {
             rlLife.setBackgroundResource(R.drawable.bg_rain);
             tvSport.setText("建议在室内运动，外出记得带雨具");
@@ -96,8 +88,8 @@ public class LifeActivity extends Activity {
         } else if (we.contains("阴")) {
             rlLife.setBackgroundResource(R.drawable.bg_cloudy);
             tvSport.setText("建议在室内运动，可能会有降雨，外出准备好雨具");
-            tvWash.setText("按个人规划洗车");
-            tvMakeup.setText("按个人喜好洗车");
+            tvWash.setText("不宜洗车");
+            tvMakeup.setText("可戴少量装饰");
             tvLight.setText("紫外线相对较弱");
             if (temp_high > 27) {
                 tvDress.setText("天气较热，适合穿短袖");
@@ -109,7 +101,7 @@ public class LifeActivity extends Activity {
         } else if (we.contains("多云")) {
             rlLife.setBackgroundResource(R.drawable.bg_cloudy);
             tvWash.setText("按个人规划洗车");
-            tvMakeup.setText("按个人喜好洗车");
+            tvMakeup.setText("适宜");
             tvLight.setText("紫外线相对较弱");
             if (temp_high > 27) {
                 tvDress.setText("天气较热，适合穿短袖");
@@ -121,12 +113,11 @@ public class LifeActivity extends Activity {
         } else if (we.contains("雪")) {
             rlLife.setBackgroundResource(R.drawable.bg_snow);
             tvDress.setText("温度较低，请注意保暖");
-            tvSport.setText("建议在室内运动，会有降雪，外出准备好雨具");
-            tvWash.setText("按个人规划洗车");
-            tvMakeup.setText("不适宜洗车");
+            tvSport.setText("不适宜洗车，会有降雪，外出准备好雨具");
+            tvWash.setText("不宜洗车");
+            tvMakeup.setText("不宜化妆");
             tvLight.setText("紫外线相对较弱");
         }
-
     }
 
     @OnClick(R.id.back)

@@ -155,13 +155,13 @@ public class GraphView extends View {
     private void drawPoint(Canvas canvas) {
         paint.setStyle(Paint.Style.FILL);
         int yOffset = DensityUtils.dip2px(context, POINT_TEXT_OFFSET);
-        for (int i = 0; i < points.length; i++) {
+       /* for (int i = 0; i < points.length; i++) {
             paint.setColor(Color.parseColor(POINT_COLOR));
             canvas.drawCircle(points[i].x, points[i].y, POINT_RADIUS, paint);
             paint.setColor(Color.WHITE);
             canvas.drawText(String.valueOf(items.get(i).getyValue()), points[i].x, points[i].y - yOffset, paint);
-        }
-        /*for (int i = 0; i < points.length/2-1; i++) {
+        }*/
+        for (int i = 0; i < points.length/2-1; i++) {
             paint.setColor(Color.parseColor(POINT_COLOR));
             canvas.drawCircle(points[i].x, points[i].y, POINT_RADIUS, paint);
             paint.setColor(Color.WHITE);
@@ -172,7 +172,7 @@ public class GraphView extends View {
             canvas.drawCircle(points[i].x, points[i].y, POINT_RADIUS, paint);
             paint.setColor(Color.WHITE);
             canvas.drawText(String.valueOf(items.get(i).getyValue()), points[i].x, points[i].y - yOffset, paint);
-        }*/
+        }
     }
 
     /**
@@ -221,7 +221,6 @@ public class GraphView extends View {
             yRealHeight = (int) (graphHeight + verMargin - graphHeight * (items.get(i).getyValue() - min) / (max - min));
             points[i] = new Point(xPoints.get(i), yRealHeight);
         }
-
        /* for (int i = 0; i < items.size()/2-1; i++) {
             yRealHeight = (int) (graphHeight + verMargin - graphHeight * (items.get(i).getyValue() - min) / (max - min));
             points[i] = new Point(xPoints.get(i), yRealHeight);
@@ -249,19 +248,6 @@ public class GraphView extends View {
                 canvas.drawText(item.getxValue(), startX, verMargin / 2, paint);
                 startX += period;
         }
-
-       /* for(int i=0;i<items.size()/2-1;i++){
-            xPoints.add(startX);
-            canvas.drawText(items.get(i).getxValue(), startX, verMargin / 2, paint);
-            startX += period;
-
-        }
-        for(int i=items.size()/2;i<items.size();i++){
-            xPoints.add(startX);
-            canvas.drawText(items.get(i).getxValue(), startX, verMargin / 2, paint);
-            startX += period;
-        }*/
-
     }
 
     /**

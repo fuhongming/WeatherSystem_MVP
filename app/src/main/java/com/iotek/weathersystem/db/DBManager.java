@@ -17,9 +17,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * author zaaach on 2016/1/26.
- */
 public class DBManager {
     private static final String ASSETS_NAME = "china_cities.db";
     private static final String DB_NAME = "china_cities.db";

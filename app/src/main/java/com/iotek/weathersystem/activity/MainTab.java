@@ -14,9 +14,9 @@ import android.widget.Toast;
 import com.iotek.weathersystem.R;
 
 public class MainTab extends ActivityGroup implements OnClickListener {
-    public static final String TAB_WEATHER = "TAB_WEATHER";
-    public static final String TAB_REALVIEW = "TAB_REALVIEW";
-    public static final String TAB_MY = "TAB_MY";
+    public static final String TAB_WEATHER = "TAB_WEATHER"; //天气
+    public static final String TAB_REALVIEW = "TAB_REALVIEW";//实景
+    public static final String TAB_MY = "TAB_MY";            //我的
     private TabHost mHost;
     private Intent intentWeather, intentRealView, intentMy;
     private RadioButton btnWeather, btnRealView, btnMy;
